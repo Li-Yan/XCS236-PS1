@@ -25,8 +25,8 @@ def log_likelihood(model, text):
         ## Hint: Implementation should only takes 3~7 lines of code.
         
         ### START CODE HERE ###
+        # ignore the first token
         logits, _ = model(text[:, 1:])
-        # logits = logits[:, 1:, :]
         target = text.contiguous()[:, 1:]
 
         logits = logits.view(-1, logits.size(-1))
