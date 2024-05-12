@@ -32,7 +32,6 @@ def log_likelihood(model, text):
         logits = logits.view(-1, logits.size(-1))
         target = target.view(-1)
         loss = nn.functional.cross_entropy(logits, target, reduction='sum') / 2.0
-        print(-loss.item())
         return -loss.item()
         ### END CODE HERE ###
         raise NotImplementedError
