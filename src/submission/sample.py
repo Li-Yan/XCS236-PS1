@@ -16,6 +16,7 @@ def temperature_scale(logits, model, new_past, config, temperature, temperature_
         ##TODO:
         ## Return logits scaled by the temperature parameter
         ### START CODE HERE ###
+        return logits / temperature
         ### END CODE HERE ###
         raise NotImplementedError
     # EXTRA CREDIT ONLY   
@@ -89,6 +90,9 @@ def sample(model, start_text, config, length, temperature=None, temperature_hori
             ##
             ## Note: It is expected that the code will throw an error until you've filled out the code block below.
             ### START CODE HERE ###
+            sampled_token = torch.multinomial(F.softmax(logits, dim=-1), 1)
+            output.append(sampled_token)
+            current_text = sampled_token
             ### END CODE HERE ###
 
             past = new_past
