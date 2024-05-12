@@ -25,15 +25,14 @@ def log_likelihood(model, text):
         ## Hint: Implementation should only takes 3~7 lines of code.
         
         ### START CODE HERE ###
-        logits, _ = model(text)
-        # Ignore the likelihood of the first token in `text`
-        logits = logits[:, 1:, :]
-        target = text.contiguous()
-        target = target[:, 1:]
+        logits, _ = model(text[:, 1:])
+        # logits = logits[:, 1:, :]
+        target = text.contiguous()[:, 1:]
 
         logits = logits.view(-1, logits.size(-1))
         target = target.view(-1)
         loss = nn.functional.cross_entropy(logits, target, reduction='sum') / 2.0
+        print(-loss.item())
         return -loss.item()
         ### END CODE HERE ###
         raise NotImplementedError
