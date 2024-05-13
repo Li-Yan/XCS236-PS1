@@ -37,6 +37,16 @@ instructions to regenerate this handout with your typeset \LaTeX{} solutions.
 
 
     % ### START CODE HERE ###
+    Let us consider the right side: \\
+    \includegraphics[width=0.8\linewidth]{PS1-1-1.png}
+    
+    Then use constant \(C\) to replace the first part in the equation: \\
+    \includegraphics[width=0.8\linewidth]{PS1-1-2.png}
+    
+    \includegraphics[width=0.8\linewidth]{PS1-1-3.png}
+    
+    
+
     % ### END CODE HERE ###
 \end{answer}
 % <SCPD_SUBMISSION_TAG>_1
@@ -58,6 +68,82 @@ instructions to regenerate this handout with your typeset \LaTeX{} solutions.
     where $Z(\sigma)$ is the Gaussian partition function (which is a function of $\sigma$). 
     
     % ### START CODE HERE ###
+    % From Bayes' Rule: 
+    % \begin{equation}
+    %     p_{\theta}(y \mid x) = \frac{p_{\theta}(x,y)}{p_{\theta}(x)} = \frac{p_{\theta}(x \mid y) p_{\theta}(y)}{p_{\theta}(x)}
+    % \end{equation}
+
+    % Note that:
+    % \begin{equation}
+    %     p_{\theta}(x \mid y) = N(x \mid \mu_y, \sigma^2I) \textbf{ and }
+    %     p_{\theta}(y) = \pi_y
+    % \end{equation}
+
+    % Then Gaussian Mixture Components:
+    % \begin{equation}
+    %     p_{\theta}(y \mid x) = \frac{N(x \mid \mu_y, \sigma^2I) \pi_y}{p_{\theta}(x)} 
+    % \end{equation}
+
+    % Thus:
+    % \begin{equation}
+    %     p_{\theta}(x) = \sum_{i=1}^{k} N(x \mid \mu_i, \sigma^2I) \pi_i
+    % \end{equation}
+
+    % From equation (3), perform log on both sides and get:
+    % \begin{equation}
+    %     \log p_{\theta}(y \mid x) = \log N(x \mid \mu_y, \sigma^2I) + \log \pi_y - \log p_{\theta}(x)
+    % \end{equation}
+
+    % Then:
+    % \begin{equation}
+    %     \log p_{\theta}(y \mid x) = -\frac{n}{2}\log(2\pi) - \frac{1}{2}\log \mid \sigma^2 I \mid - \frac{1}{2\sigma^2}(x - \mu_y)^T(x - \mu_y) + \log \pi_y - \log p_{\theta}(x)
+    % \end{equation}
+
+    % Then:
+    % \begin{equation}
+    %     \log p_{\gamma}(y \mid x) = x^T w_y + b_y - \log \sum_{i=1}^{k} \exp(x^T w_i + b_i)
+    % \end{equation}
+
+    % Thus we can pick:
+    % \begin{equation}
+    %     w_y = (1/\sigma^2) \mu_y
+    % \end{equation}
+
+    % \begin{equation}
+    %     b_y = \log \pi_y - (1/2\sigma^2) \mu_y^T \mu_y - (n/2) \log(2\pi) - (1/2) \log \mid \sigma^2I \mid
+    % \end{equation}
+
+
+    From the above equation, take log on both sides:
+    \begin{equation}
+         \log p_{\theta}(y \mid x) = - \frac{1}{2\sigma^2}(x - \mu_y)^T(x - \mu_y) + \log \pi_y - \log p_{\theta}(x) - log(\sum_{i} \pi_i \cdot \exp\left(- \frac{1}{2\sigma^2}\left(x-\mu_{i}\right)^{\top}\left(x-\mu_{i}\right)\right) \cdot Z^{-1}(\sigma))
+    \end{equation}
+
+    
+    \begin{equation}
+         \log p_{\theta}(y \mid x) = \frac{1}{\sigma^2}x^T\mu_y - \frac{1}{2\sigma^2}x^Tx - \frac{1}{2\sigma^2}\mu_y^T\mu_y + \log \pi_y - \log p_{\theta}(x) - log(\sum_{i} \pi_i \cdot \exp\left(- \frac{1}{2\sigma^2}\left(x-\mu_{i}\right)^{\top}\left(x-\mu_{i}\right)\right) \cdot Z^{-1}(\sigma))
+    \end{equation}
+
+    From the question:
+    \begin{equation}
+        p_\gamma(y \mid x) = \frac{exp(x^T w_y + b_y)}{\sum_{i=1}^{k}(exp(x^T w_i + b_i))} \\
+    \end{equation}
+
+    From (3) take log on both sides:
+    \begin{equation}
+        log p_\gamma(y \mid x) = x^T w_y + b_y - log(\sum_{i=1}^{k}(exp(x^T w_i + b_i)))
+    \end{equation}
+
+    The question is asking to find \(w_y\) and \(b_y\) that makes question (2) equations equation (4).
+
+    Then
+    \begin{equation}
+        w_y = \frac{1}{\sigma^2}\mu_y
+    \end{equation}
+    \begin{equation}
+        b_y = \log \pi_y - \frac{1}{2\sigma^2} \mu_y^T \mu_y - (1/2) \log \mid \sigma^2I \mid
+    \end{equation}
+
     % ### END CODE HERE ###
 \end{answer}
 % <SCPD_SUBMISSION_TAG>_2
@@ -72,6 +158,17 @@ instructions to regenerate this handout with your typeset \LaTeX{} solutions.
 % <SCPD_SUBMISSION_TAG>_3a
 \begin{answer}
     % ### START CODE HERE ###
+    \((X_1, X_2, ..., X_n)\) can be fully represented by a table where each cell corresponds to a unique combination of outcomes for all the variables. Total number of cells is:
+
+    \begin{equation}
+        k_1 * k_2 * ... * k_n = \prod_{i=1}^{n}k_i
+    \end{equation}
+
+    However, since the probabilities in a distribution must sum to 1, so the total number of independent parameters is
+
+    \begin{equation}
+        \prod_{i=1}^{n}k_i - 1
+    \end{equation}
     % ### END CODE HERE ###
 \end{answer}
 % <SCPD_SUBMISSION_TAG>_3a
@@ -83,6 +180,7 @@ instructions to regenerate this handout with your typeset \LaTeX{} solutions.
 % <SCPD_SUBMISSION_TAG>_3b
 \begin{answer}
     % ### START CODE HERE ###
+    If variables \((X_1, X_2, ..., X_n)\) are mutually independent, then there are  \(\sum_{i=1}^{n}(k_i - 1)\) total number of independent parameters.
     % ### END CODE HERE ###
 \end{answer}
 % <SCPD_SUBMISSION_TAG>_3b
@@ -94,6 +192,23 @@ instructions to regenerate this handout with your typeset \LaTeX{} solutions.
 % <SCPD_SUBMISSION_TAG>_3c
 \begin{answer}
     % ### START CODE HERE ###
+    For each \(i > m\) and \(i <= n\), it requires
+
+    \begin{equation}
+      k_i * k_{i-1} * ... * k_{i-m} - 1 = \prod_{j=i-m}^{i}k_i - 1
+    \end{equation}
+
+    For each \(i <= m\), it requires
+
+    \begin{equation}
+        k_i - 1
+    \end{equation}
+
+    Combine (9) and (10) together, total number of parameters are:
+
+    \begin{equation}
+        \sum_{j=1}^{m}(k_j-1) + \sum_{j=m+1}^n(\prod_{j=i-m}^{i}k_i - 1)
+    \end{equation}
     % ### END CODE HERE ###
 \end{answer}
 % <SCPD_SUBMISSION_TAG>_3c
@@ -127,7 +242,7 @@ instructions to regenerate this handout with your typeset \LaTeX{} solutions.
         $
     \end{center}
 
-    (*) This construction makes $p_f(x_2)$ a mixture of two distinct Gaussians, which $p_r(x_2)$ cannot match, since $p_r(x_2)$ is 
+    (*) This construction makes $p_f(x_2)$ a mixture of two distinct Gaussians, which $p_r(x_2)$ cannot match, since $p_f(x_2)$ is 
     strictly Gaussian. Any counterexample of this form, which makes $p_f(x_2)$ non-Gaussian, suffices for full-credit.
 
     (**) Interestingly, we can also intuit about the distribution $p_f(x_1 \mid x_2)$. If one chooses a very small positive $\epsilon$, then the 
@@ -144,6 +259,40 @@ instructions to regenerate this handout with your typeset \LaTeX{} solutions.
     is a mixture of truncated Gaussians whose mixture weights depend on $\epsilon$.
 
     % ### START CODE HERE ###
+    \textbf{Answer: No}
+    
+    \textbf{Counterexample (n=2)}:
+    
+    Let's consider a simple case with two variables, (\(X_1\)) and (\(X_2\)), as suggested in the hint.
+    
+    Define the forward model as follows:
+    \begin{equation}
+        (p_f(x_1) = \mathcal{N}(x_1 \mid 0, 1))
+    \end{equation}
+
+    \begin{equation}
+    \begin{split}
+        (p_f(x_2 \mid x_1) = \mathcal{N}(x_2 \mid \mu_2(x_1), \epsilon)) \textbf{ where:} \\
+        \mu_2(x_1) = \begin{cases} 
+                   0 & \text{if } x_1 \le 0 \\
+                   1 & \text{otherwise}
+               \end{cases}
+    \end{split}
+    \end{equation}
+
+    Given that:
+    \begin{equation}
+        p_f(x_1, x_2) = p_f(x_1) * p_f(x_2 \mid x_1)
+    \end{equation}
+
+    This construction makes \(p_f(x_2)\) a mixture of two distinct Gaussians.
+
+    For the reverse:
+    \begin{equation}
+        p_r(x_1, x_2) = p_r(x_2) * p_r(x_1 \mid x_2)
+    \end{equation}
+
+    For \(p_r(x_2)\) to match the behavior of \(p_f(x_2)\) as described above, it needs to be a mixture of two distinct Gaussians, which can't be achieved if we model \(p_f(x_2)\) directly.
     % ### END CODE HERE ###
 \end{answer}
 % <SCPD_SUBMISSION_TAG>_4
@@ -157,6 +306,16 @@ instructions to regenerate this handout with your typeset \LaTeX{} solutions.
 % <SCPD_SUBMISSION_TAG>_5a
 \begin{answer}
     % ### START CODE HERE ###
+    \begin{equation}
+    \begin{split}
+        E[A] & = E[\frac{1}{k} * \sum_{i=1}^{k} p(x \mid z^{(i)})] \\
+             & = \frac{1}{k} * \sum_{i=1}^{k}E[p(x \mid z^{(i)})] \\
+             & \sim \frac{1}{k} * \sum_{i=1}^{k} \int_x p(x \mid z)p(z)dz \textbf{ since } z^{(i)} \sim p(z)\\
+             & = \int_x p(x \mid z)p(z) dz \\
+             & = \int_x p(x, z) dz \\
+             & = p(x)
+    \end{split}
+    \end{equation}
     % ### END CODE HERE ###
 \end{answer}
 % <SCPD_SUBMISSION_TAG>_5a
@@ -168,6 +327,18 @@ instructions to regenerate this handout with your typeset \LaTeX{} solutions.
 % <SCPD_SUBMISSION_TAG>_5b
 \begin{answer}
     % ### START CODE HERE ###
+    \(log\) is a concave function, and thus by Jensen's inequality:
+
+    \begin{equation}
+        E[log(A)] <= log(E[A])
+    \end{equation}
+
+    From question 5a, we know that \(E(A)=p(x)\), thus:
+    \begin{equation}
+        E[log(A)] <= log(p(x))
+    \end{equation}
+
+    This means \(log(A)\) is a \textbf{biased} estimator.
     % ### END CODE HERE ###
 \end{answer}
 % <SCPD_SUBMISSION_TAG>_5b
@@ -181,6 +352,18 @@ instructions to regenerate this handout with your typeset \LaTeX{} solutions.
 % <SCPD_SUBMISSION_TAG>_6a
 \begin{answer}
     % ### START CODE HERE ###
+    Each \(a_i\) has \(2\) possible values, and thus we need to find the minimum integer \(n\) that:
+
+    \begin{equation}
+        2^n >= 502457
+    \end{equation}
+
+    Then
+    \begin{equation}
+        n >= log_2 50257 = 15.617
+    \end{equation}
+
+    Thus the minimum possible integer \(n\) is \(16\).
     % ### END CODE HERE ###
 \end{answer}
 % <SCPD_SUBMISSION_TAG>_6a
@@ -192,6 +375,24 @@ instructions to regenerate this handout with your typeset \LaTeX{} solutions.
 % <SCPD_SUBMISSION_TAG>_6b
 \begin{answer}
     % ### START CODE HERE ###
+    In the embedding layer, total parameter is (total possible tokens) * (vector dim). Thus the increase in the embedding layer is:
+
+    \begin{equation}
+        (60000-50257)*768=7482624
+    \end{equation}
+
+    The the number of the parameters in the GPT-2 module is not changed.
+
+    In the Fully-Connected Layer, input is 768 dim, output is from 50257 dim to 60000. So the parameter increase is:
+
+    \begin{equation}
+        (60000-50257)*768=7482624
+    \end{equation}
+
+    Add all of them together, the total parameter increase is:
+    \begin{equation}
+        7482624 + 7482624 = 14965248
+    \end{equation}
     % ### END CODE HERE ###
 \end{answer}
 % <SCPD_SUBMISSION_TAG>_6b
